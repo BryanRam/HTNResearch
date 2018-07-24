@@ -14,19 +14,19 @@ import struct.MotionData;
 
 public class Helper 
 {
-	public static boolean DEBUG_METHOD_DECOMPOSITION = true;
+	public static boolean DEBUG_METHOD_DECOMPOSITION = false;
 	
-	public static boolean DEBUG_HIT_INTERSECTION = true;
+	public static boolean DEBUG_HIT_INTERSECTION = false;
 	
-	public static boolean DEBUG_PLAN = true;
+	public static boolean DEBUG_PLAN = false;
 	
-	public static boolean DEBUG_ACTION_HISTORY = true;
+	public static boolean DEBUG_ACTION_HISTORY = false;
 	
-	public static boolean DEBUG_ACTION_EXECUTION = true;
+	public static boolean DEBUG_ACTION_EXECUTION = false;
 	
-	public static boolean DEBUG_PRECONDITIONS = true;
+	public static boolean DEBUG_PRECONDITIONS = false;
 	
-	public static boolean DEBUG_TIME_OUT = true;
+	public static boolean DEBUG_TIME_OUT = false;
 	
 	public static boolean DEBUG_UCB_STATICTICS = true;
 	
@@ -43,7 +43,7 @@ public class Helper
 	
 	public static boolean DECREASE_C = false;
 	
-	public static boolean LEARN_UCB = false;
+	public static boolean LEARN_UCB = true;
 	
 	public static boolean BoxesIntersect(HitArea hit, SimCharacter me, SimCharacter other)
 	{
