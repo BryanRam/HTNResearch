@@ -40,12 +40,19 @@ public class c_Attack extends CompoundTask
 		
 		this.name = "c_Attack";
 		
-		this.methods.add(new m_KnockDownAttack());
 		this.methods.add(new m_ProjectileAttack());
+		
+		this.methods.add(new m_ThrowAttack());
 		this.methods.add(new m_KnockBackAttack());
+		this.methods.add(new m_KnockDownAttack());
+		
+		this.methods.add(new m_SlidingAttack());
+		
+		
+		
 		
 		this.methods.add(new m_AttackSortedByType());
-		this.methods.add(new m_SlidingAttack());
+		
 
 		c_Attack.methodsUsed = new int[this.methods.size()];
 		c_Attack.methodsSucceeded = new float[this.methods.size()];

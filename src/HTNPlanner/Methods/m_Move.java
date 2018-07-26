@@ -71,10 +71,10 @@ public class m_Move extends Method
 				this.tasksToDecompose.add(new p_BACK_STEP());
 			}*/
 			//else
-			{
+			//{
 				//System.out.println(".....opp in air? - p_BACK_STEP");
 				this.tasksToDecompose.add(new p_BACK_STEP());
-			}
+			//}
 		}
 		return true;
 	}

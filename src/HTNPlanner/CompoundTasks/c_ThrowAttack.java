@@ -47,6 +47,8 @@ public class c_ThrowAttack extends CompoundTask
 		else
 		this.methods = Planner.INSTANCE.GetThrowAttacks();
 		
+		this.methods.add(new m_Move());
+		
 		c_ThrowAttack.methodsUsed = new int[this.methods.size()];
 		c_ThrowAttack.methodsSucceeded = new float[this.methods.size()];
 	}
