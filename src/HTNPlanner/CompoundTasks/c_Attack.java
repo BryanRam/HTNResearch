@@ -42,7 +42,7 @@ public class c_Attack extends CompoundTask
 		
 		this.methods.add(new m_ProjectileAttack());
 		
-		this.methods.add(new m_ThrowAttack());
+		//this.methods.add(new m_ThrowAttack());
 		this.methods.add(new m_KnockBackAttack());
 		this.methods.add(new m_KnockDownAttack());
 		

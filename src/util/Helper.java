@@ -22,7 +22,7 @@ public class Helper
 	
 	public static boolean DEBUG_ACTION_HISTORY = false;
 	
-	public static boolean DEBUG_ACTION_EXECUTION = false;
+	public static boolean DEBUG_ACTION_EXECUTION = true;
 	
 	public static boolean DEBUG_PRECONDITIONS = false;
 	
@@ -43,7 +43,7 @@ public class Helper
 	
 	public static boolean DECREASE_C = false;
 	
-	public static boolean LEARN_UCB = true;
+	public static boolean LEARN_UCB = false;
 	
 	public static boolean BoxesIntersect(HitArea hit, SimCharacter me, SimCharacter other)
 	{

@@ -100,7 +100,7 @@ public class UCBPlanner extends Planner
 		{
 			PrintWriter pw = new PrintWriter(new BufferedWriter(new FileWriter(file)));
 			((CompoundTask)this.goalTask).PrintAllUCBValuesOfTask(pw);
-			//System.out.println(outp);
+			System.out.println(outp);
 			pw.close();
 			
 		} catch (IOException e) {

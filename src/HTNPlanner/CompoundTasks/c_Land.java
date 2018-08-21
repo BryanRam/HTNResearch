@@ -5,6 +5,7 @@
 package HTNPlanner.CompoundTasks;
 
 import java.io.PrintWriter;
+import java.lang.reflect.Array;
 
 import util.Helper;
 import HTNPlanner.CompoundTask;
@@ -57,6 +58,13 @@ public class c_Land extends CompoundTask
 		this.succeeded = (Float.parseFloat(values[2]));
 		for(int i=0; i< this.methods.size(); ++i)
 		{
+			/*
+			System.out.println("Lands");
+			System.out.println("MethodSize: " + this.methods.size());
+			System.out.println("ValuesSize: " + Array.getLength(values));
+			System.out.println("ParseInt: " + (Integer.parseInt(values[3+i])));
+			System.out.println("ParseFloat: " + (Float.parseFloat(values[3+i+this.methods.size()])));
+			//*/
 			this.methodsUsed[i] = (Integer.parseInt(values[3+i]));
 			this.methodsSucceeded[i] = (Float.parseFloat(values[3+i+this.methods.size()]));
 		}

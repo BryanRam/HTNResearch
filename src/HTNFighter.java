@@ -184,20 +184,28 @@ public class HTNFighter implements AIInterface {
 	@Override
 	public void roundEnd(int p1Hp, int p2Hp, int frames)
 	{
-		if(Helper.DEBUG_ACTION_EXECUTION)
+		/*if(Helper.DEBUG_ACTION_EXECUTION)
 		{
 			System.out.println("combos this round = " + combos[0] + ", " + combos[1] + ", "+ combos[2] + ", "+ combos[3] );
 			System.out.println("combos opp = " + combosOpp[0] + ", " + combosOpp[1] + ", "+ combosOpp[2] + ", "+ combosOpp[3] );
-		}
+		}*/
 		this.combos = null;
 		this.combosOpp = null;
 		
 		 myPrevHp = 0;
 		 oppPrevHp = 0;
 		 
+		 System.out.println("in rend");
+		 
 		 //save UCB values in a file
 		if(planner.getClass().getSimpleName().equals("UCBPlanner") && Helper.LEARN_UCB)
 		{
+			System.out.println("Learning");
+			if(Helper.DEBUG_UCB_STATICTICS)
+			{
+				//System.out.println("printing to: data/aiData/HTNFighter/UCB_"+ this.gameData.getCharacterName(this.player)+".txt");
+				//System.out.println("combos opp = " + combosOpp[0] + ", " + combosOpp[1] + ", "+ combosOpp[2] + ", "+ combosOpp[3] );
+			}
 			((UCBPlanner)(planner)).PrintAllUCBValues();
 		}
 	}

@@ -5,6 +5,8 @@
 package HTNPlanner.CompoundTasks;
 
 import java.io.PrintWriter;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -68,12 +70,29 @@ public class c_ThrowAttack extends CompoundTask
 	@Override
 	public void SetUCBValues(String[] values)
 	{
+		/*
+		System.out.println("Method size: " + this.methods.size());
+		System.out.println("MethodsUsed Size: " + Array.getLength(this.methodsUsed));
+		System.out.println("Values Size: " + Array.getLength(values));
+		*/
 		this.selected = (Integer.parseInt(values[1]));
 		this.succeeded = (Float.parseFloat(values[2]));
-		for(int i=0; i< this.methods.size(); ++i)
+		for(int i=0; i< /*this.methods.size()*/((Array.getLength(values)-3)/2); ++i)
 		{
+			/*
+			System.out.println("Values Size: " + Array.getLength(values) + 
+					" current iterator: " + i + 
+					" Methods size: " + this.methods.size() + 
+					" current val: " + (3+i+this.methods.size()) );
+					
+			System.out.println(Arrays.toString(values));
+			System.out.println("ParseInt: " + (values[1]));
+			//System.out.println("ParseFloat: " + (Float.parseFloat(values[3+2])));
+			*/
+			System.out.println(values[3+i]);
 			this.methodsUsed[i] = (Integer.parseInt(values[3+i]));
-			this.methodsSucceeded[i] = (Float.parseFloat(values[3+i+this.methods.size()]));
+			//this.methodsSucceeded[i] = (Float.parseFloat(values[3+i+this.methods.size()]));
+			this.methodsSucceeded[i] = (Float.parseFloat(values[3+i+((Array.getLength(values)-3)/2)]));
 		}
 	}
 	

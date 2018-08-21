@@ -5,6 +5,8 @@
 package HTNPlanner.CompoundTasks;
 
 import java.io.PrintWriter;
+import java.lang.reflect.Array;
+import java.util.*;
 
 import util.Helper;
 import HTNPlanner.CompoundTask;
@@ -66,6 +68,14 @@ public class c_KnockBackAttack extends CompoundTask
 		this.succeeded = (Float.parseFloat(values[2]));
 		for(int i=0; i< this.methods.size(); ++i)
 		{
+			/*
+			System.out.println("Knockbacks");
+			System.out.println(Arrays.toString(values));
+			System.out.println("MethodSize: " + this.methods.size());
+			System.out.println("ValuesSize: " + Array.getLength(values));
+			System.out.println("ParseInt: " + (values[0]));
+			System.out.println("ParseFloat: " + (3+i+this.methods.size()));
+			//*/
 			this.methodsUsed[i] = (Integer.parseInt(values[3+i]));
 			this.methodsSucceeded[i] = (Float.parseFloat(values[3+i+this.methods.size()]));
 		}
