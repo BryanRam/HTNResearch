@@ -115,11 +115,29 @@ public class c_EscapeCorner extends CompoundTask
 		}
 		
 		double numSelectedMethod = (double)c_EscapeCorner.methodsUsed[methodIndex] + UCBPlanner.EPSILON;
+		
+		/*
 		double ln = Math.log(this.selected);
 		ln = this.selected == 0? 0:ln;
 		double quotient = ln/numSelectedMethod ;
+		
 
 		float val = (float)(UCBPlanner.C * Math.sqrt(quotient));
+		*/
+		
+		/*double ln = 2 * Math.log(this.selected);
+		ln = this.selected == 0? 0:ln;
+		double quotient = ln/numSelectedMethod ;
+		
+
+		float val = (float)(3 * Math.sqrt(quotient));*/
+		
+		double ln = Math.log(this.selected);
+		ln = this.selected == 0? 0:ln;
+		double quotient = 1.5 * (ln/numSelectedMethod) ;
+		
+		float val = (float)(Math.sqrt(quotient));
+		
 		
 		if(Helper.DEBUG_UCB_STATICTICS)
 		{

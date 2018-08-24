@@ -33,9 +33,8 @@ public class c_Move extends CompoundTask
 			
 			this.name = "c_Move";
 			
-			this.methods.add(new m_ComeCloser());
 			this.methods.add(new m_KeepDistance());
-			
+			this.methods.add(new m_ComeCloser());
 		
 			//this.methods.add(new m_Forwards());
 			//this.methods.add(new m_Backwards());
@@ -114,11 +113,29 @@ public class c_Move extends CompoundTask
 			}
 			
 			double numSelectedMethod = (double)c_Move.methodsUsed[methodIndex] + UCBPlanner.EPSILON;
+			
+			/*
 			double ln = Math.log(this.selected);
 			ln = this.selected == 0? 0:ln;
 			double quotient = ln/numSelectedMethod ;
 			
+
 			float val = (float)(UCBPlanner.C * Math.sqrt(quotient));
+			*/
+			
+			/*double ln = 2 * Math.log(this.selected);
+			ln = this.selected == 0? 0:ln;
+			double quotient = ln/numSelectedMethod ;
+			
+
+			float val = (float)(3 * Math.sqrt(quotient));*/
+			
+			double ln = Math.log(this.selected);
+			ln = this.selected == 0? 0:ln;
+			double quotient = 1.5 * (ln/numSelectedMethod) ;
+			
+			float val = (float)(Math.sqrt(quotient));
+			
 			if(Helper.DEBUG_UCB_STATICTICS)
 			{
 				System.out.println("Exploration val for " + this.methods.get(methodIndex).name + " = " + val);

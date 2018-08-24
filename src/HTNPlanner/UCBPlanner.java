@@ -36,6 +36,8 @@ public class UCBPlanner extends Planner
 	public static float EPSILON = (float) 0.1;
 	
 	private String pathString;
+	private String pathStringLog;
+	private File logFile;
 	private File file;
 	
 	public UCBPlanner(boolean player, GameData gameData) 
@@ -47,7 +49,7 @@ public class UCBPlanner extends Planner
 		Planner.INSTANCE = this;
 		
 		pathString =  "data/aiData/HTNFighter/UCB_"+ this.gameData.getCharacterName(this.player)+".txt"; 
-		
+		pathStringLog =  "data/aiData/HTNFighter/UCB_"+ this.gameData.getCharacterName(this.player)+"Log.txt";
 	}
 	
 	public void ReadAllUCBValues()
@@ -120,26 +122,43 @@ public class UCBPlanner extends Planner
 			currentVal = cTask.GetExplorationValForMethod(prevIndex) + cTask.GetExploitationValForMethod(prevIndex);
 		}
 		
-		for(int i = 0; i < cTask.methods.size(); ++i)
+		logFile = new File(pathStringLog);
+		try 
 		{
-			if(cTask.methods.get(i).CheckPreconditions(currentSimCharacters))
+		BufferedWriter bw = new BufferedWriter(new FileWriter(logFile));
+		PrintWriter pw = new PrintWriter(bw);
+		
+			for(int i = 0; i < cTask.methods.size(); ++i)
 			{
-				//get UCB value
-				float exploration = cTask.GetExplorationValForMethod(i);
-				float exploitation = cTask.GetExploitationValForMethod(i);
-				float ucb = exploration + exploitation;
-				if(Helper.DEBUG_UCB_STATICTICS)
+				if(cTask.methods.get(i).CheckPreconditions(currentSimCharacters))
 				{
-					System.out.println("UCB value of " + cTask.methods.get(i).name + " = " + ucb);
+					//get UCB value
+					float exploration = cTask.GetExplorationValForMethod(i);
+					float exploitation = cTask.GetExploitationValForMethod(i);
+					float ucb = exploration + exploitation;
+					if(Helper.DEBUG_UCB_STATICTICS)
+					{
+						String log = "UCB value of " + cTask.methods.get(i).name + " = " + ucb;
+						System.out.println(log);
+						
+						pw.append(log);
+						bw.newLine();
+							
+						
+						
+					}
+					if(ucb >= maxVal && ucb <= currentVal && methodsTried[i] != 1)
+					{
+						maxVal = ucb;
+						bestIndex = i;		
+					}
+					
 				}
-				if(ucb >= maxVal && ucb <= currentVal && methodsTried[i] != 1)
-				{
-					maxVal = ucb;
-					bestIndex = i;		
-				}
-				
 			}
+			pw.close();
+		} catch (IOException e) {
 		}
+		
 
 		if(bestIndex < 0)
 		{

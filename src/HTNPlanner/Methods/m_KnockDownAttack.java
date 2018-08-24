@@ -25,6 +25,7 @@ public class m_KnockDownAttack extends Method
 		this.name = "m_KnockDownAttack";
 
 		this.tasksToDecompose.add(new c_KnockDownAttack());
+		this.tasksToDecompose.add(new c_Move());
 		//this.tasksToDecompose.add(new c_QuickAttack());
 		//this.tasksToDecompose.add(new c_LowAttack());
 

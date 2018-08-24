@@ -154,8 +154,14 @@ public class HTNFighter implements AIInterface {
 		//String tmpcharname = this.gameData.getCharacterName(this.playerB);
 		if(myCharacterName.equals("ZEN"))
 		{
+			/*
 			planner = new OrderedPlanner(playerB, gameData);
 			planner.initialized = true;
+			//*/
+			///*
+			planner = new UCBPlanner(playerB, gameData);
+			((UCBPlanner)(planner)).ReadAllUCBValues();
+			//*/
 		}
 		//GARNET and LUD use UCBPlanner 
 		else

@@ -46,7 +46,7 @@ public class c_Act extends CompoundTask
 		
 		this.methods.add(new m_Land());
 		
-		this.methods.add(new m_UseCombo());	
+		//this.methods.add(new m_UseCombo());	
 
 		this.methods.add(new m_Attack());
 		
@@ -138,11 +138,29 @@ public class c_Act extends CompoundTask
 		}
 		
 		double numSelectedMethod = (double)c_Act.methodsUsed[methodIndex] + UCBPlanner.EPSILON;
+		
+		/*
 		double ln = Math.log(this.selected);
 		ln = this.selected == 0? 0:ln;
 		double quotient = ln/numSelectedMethod ;
+		
 
 		float val = (float)(UCBPlanner.C * Math.sqrt(quotient));
+		*/
+		
+		/*double ln = 2 * Math.log(this.selected);
+		ln = this.selected == 0? 0:ln;
+		double quotient = ln/numSelectedMethod ;
+		
+
+		float val = (float)(3 * Math.sqrt(quotient));*/
+		
+		double ln = Math.log(this.selected);
+		ln = this.selected == 0? 0:ln;
+		double quotient = 1.5 * (ln/numSelectedMethod) ;
+		
+		float val = (float)(Math.sqrt(quotient));
+		
 		if(Helper.DEBUG_UCB_STATICTICS)
 		{
 			System.out.println("Exploration val for " + this.methods.get(methodIndex).name + " = " + val 
