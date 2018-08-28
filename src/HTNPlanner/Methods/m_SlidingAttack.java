@@ -25,7 +25,7 @@ public class m_SlidingAttack extends Method
 		this.name = "m_SlidingAttack";
 
 		this.tasksToDecompose.add(new c_SlidingAttack());		
-
+		//this.tasksToDecompose.add(new c_Move());
 	}
 	
 	@Override

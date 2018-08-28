@@ -40,13 +40,29 @@ public class c_Attack extends CompoundTask
 		
 		this.name = "c_Attack";
 		
-		this.methods.add(new m_ProjectileAttack());
-		
-		this.methods.add(new m_KnockDownAttack());
-		this.methods.add(new m_ThrowAttack());
+		/*
 		this.methods.add(new m_SlidingAttack());
+		this.methods.add(new m_KnockBackAttack());
+		this.methods.add(new m_KnockDownAttack());
+		this.methods.add(new m_ProjectileAttack());
+		this.methods.add(new m_AttackSortedByType());
+		*/
+		///*
+		this.methods.add(new m_QuickSpecials());
+		this.methods.add(new m_SlidingAttack());
+		this.methods.add(new m_ProjectileAttack());
+		this.methods.add(new m_QuickAttack());
+		this.methods.add(new m_KnockDownAttack());
 		
-		this.methods.add(new m_KnockBackAttack());				
+		
+		//*/
+		
+		//this.methods.add(new m_KnockBackAttack());
+		//this.methods.add(new m_ThrowAttack());
+		
+		
+		
+						
 		this.methods.add(new m_AttackSortedByType());
 		
 
@@ -141,12 +157,19 @@ public class c_Attack extends CompoundTask
 
 		float val = (float)(3 * Math.sqrt(quotient));*/
 		
+		/*
 		double ln = Math.log(this.selected);
 		ln = this.selected == 0? 0:ln;
 		double quotient = 1.5 * (ln/numSelectedMethod) ;
 		
 		float val = (float)(Math.sqrt(quotient));
+		*/
 		
+		double ln = Math.log(this.selected);
+		ln = this.selected == 0? 0:ln;
+		double quotient = UCBPlanner.C * (ln/numSelectedMethod) ;
+		
+		float val = (float)(Math.sqrt(quotient));
 		
 		if(Helper.DEBUG_UCB_STATICTICS)
 		{

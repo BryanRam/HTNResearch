@@ -54,6 +54,18 @@ public class m_Move extends Method
 		{
 			this.tasksToDecompose.add(new p_STAND());
 		}	*/
+		
+		else if(currentSimCharacters.m_a.getEnergy() < 80 &&
+				(//Don't jump back into a corner
+					(currentSimCharacters.m_a.getLeft()>60 && currentSimCharacters.m_a.isFront()) || 
+					(currentSimCharacters.m_a.getRight() < Planner.INSTANCE.GetGameData().getStageWidth()-60 && 
+						!currentSimCharacters.m_a.isFront()) 
+				)
+			   )
+		{
+			this.tasksToDecompose.add(new p_BACK_JUMP());
+		}
+		
 		else
 		{	
 			Vector<MotionData> mVector = Planner.INSTANCE.GetMotionData(false);
@@ -73,6 +85,8 @@ public class m_Move extends Method
 			//else
 			//{
 				//System.out.println(".....opp in air? - p_BACK_STEP");
+			
+			
 				this.tasksToDecompose.add(new p_BACK_STEP());
 			//}
 		}

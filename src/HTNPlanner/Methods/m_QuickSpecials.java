@@ -1,6 +1,7 @@
 /*******************************************************************************
- * HTN Fighter 
- * Created by Xenija Neufeld, 2017
+ * Keep Away Fighter
+ * Created by Bradley Ramsay 2018
+ * Inspired by HTN Fighter which was created by Xenija Neufeld, 2017
  ******************************************************************************/
 package HTNPlanner.Methods;
 
@@ -16,31 +17,43 @@ import HTNPlanner.Planner;
 import HTNPlanner.CompoundTasks.*;
 import HTNPlanner.PrimitiveTasks.*;
 
-public class m_KnockDownAttack extends Method 
+public class m_QuickSpecials extends Method 
 {
-	public m_KnockDownAttack()
+	public m_QuickSpecials()
 	{
 		super();
 		
-		this.name = "m_KnockDownAttack";
+		this.name = "m_QuickAttack";
 
-		this.tasksToDecompose.add(new c_KnockDownAttack());
-		
-		//this.tasksToDecompose.add(new c_Move());
-		//this.tasksToDecompose.add(new c_ProjectileAttack());
+		//this.tasksToDecompose.add(new c_QuickSpecials());
+		this.tasksToDecompose.add(new p_STAND_F_D_DFB());
 		//this.tasksToDecompose.add(new c_QuickAttack());
-		//this.tasksToDecompose.add(new c_LowAttack());
-
+		
 	}
 	
 	@Override
 	public boolean CheckPreconditions(Pair<SimCharacter, SimCharacter> currentSimCharacters) 
-	{
+	{ 
+		/*if(Planner.INSTANCE.player == currentSimCharacters.m_a.isPlayerNumber())
+		{
+				if(currentSimCharacters.m_a.getEnergy() < 50)
+			{
+				return false;
+			}
+		}
+		else
+		{
+			if(currentSimCharacters.m_b.getEnergy() < 50)
+			{
+				return false;
+			}
+			
+		}*/
 		//TODO: here
 		int distH = Helper.DistanceBetweenBoxes(currentSimCharacters.m_a.getLeft(), currentSimCharacters.m_a.getRight(),
 				currentSimCharacters.m_b.getLeft(), currentSimCharacters.m_b.getRight());
 		//TODO: here
-		if( distH >200 ) //|| distH < 30 )
+		if( distH > 400 )
 		{
 			return false;
 		}

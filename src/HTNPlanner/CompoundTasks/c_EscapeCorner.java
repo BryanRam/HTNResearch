@@ -39,9 +39,10 @@ public class c_EscapeCorner extends CompoundTask
 		this.name = "c_EscapeCorner";
 		
 		this.methods.add(new m_MoveAwayInAir());
+		this.methods.add(new m_Evade());
 		this.methods.add(new m_SlidingAttack());	
 		this.methods.add(new m_DashOutOfCorner());	
-		this.methods.add(new m_Evade());
+		
 	
 		c_EscapeCorner.methodsUsed = new int[this.methods.size()];
 		c_EscapeCorner.methodsSucceeded = new float[this.methods.size()];
@@ -132,9 +133,17 @@ public class c_EscapeCorner extends CompoundTask
 
 		float val = (float)(3 * Math.sqrt(quotient));*/
 		
+		/*
 		double ln = Math.log(this.selected);
 		ln = this.selected == 0? 0:ln;
 		double quotient = 1.5 * (ln/numSelectedMethod) ;
+		
+		float val = (float)(Math.sqrt(quotient));
+		*/
+		
+		double ln = Math.log(this.selected);
+		ln = this.selected == 0? 0:ln;
+		double quotient = UCBPlanner.C * (ln/numSelectedMethod) ;
 		
 		float val = (float)(Math.sqrt(quotient));
 		

@@ -33,6 +33,29 @@ public class m_ProjectileAttack extends Method
 	public boolean CheckPreconditions(Pair<SimCharacter, SimCharacter> currentSimCharacters) 
 	{		
 		boolean holds = true;
+		/*
+		//Projectile attacks have too much startup to be a good risk to take at lower health levels
+		if(currentSimCharacters.m_b.getHp() < 100 || currentSimCharacters.m_a.getHp() < 100)
+		{
+			return false;
+		}
+		*/
+		
+		if(Planner.INSTANCE.player == currentSimCharacters.m_a.isPlayerNumber())
+		{
+				if(currentSimCharacters.m_a.getHp() < 80)
+			{
+				return false;
+			}
+		}
+		else
+		{
+			if(currentSimCharacters.m_b.getHp() < 80)
+			{
+				return false;
+			}
+			
+		}
 
 		if (!currentSimCharacters.m_b.isControl() && !currentSimCharacters.m_b.getState().equals(State.AIR))
 		{
@@ -47,12 +70,12 @@ public class m_ProjectileAttack extends Method
 	//	System.out.println("diff v " + diffV + " diff h " + diffH);
 		
 		
-		if(diffV > 50 && diffH < 50)
+		if(diffV > 50 && diffH < 55)
 		{
 			System.out.println("i'm above - no projectile");
 			holds = false;
 		}
-		if(diffV > 10 && diffH < 10)
+		if(diffV > 10 && diffH < 15)
 		{
 			System.out.println("i'm above - no projectile");
 			holds = false;
@@ -65,12 +88,12 @@ public class m_ProjectileAttack extends Method
 	//	System.out.println("diff v " + diffV + " diff h " + diffH);
 		
 		
-		if(diffV > 50 && diffH < 50)
+		if(diffV > 50 && diffH < 55)
 		{
 	//		System.out.println("he is above - no projectile");
 			holds = false;
 		}
-		if(diffV > 10 && diffH < 10)
+		if(diffV > 10 && diffH < 15)
 		{
 	//		System.out.println("he is above - no projectile");
 			holds = false;

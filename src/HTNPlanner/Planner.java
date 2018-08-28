@@ -4,6 +4,13 @@
  ******************************************************************************/
 package HTNPlanner;
 
+import java.io.BufferedWriter;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.Iterator;
@@ -17,6 +24,8 @@ import java.util.Vector;
 
 import enumerate.Action;
 import enumerate.State;
+//import informationcontainer.RoundResult;
+//import loader.ResourceLoader;
 //import fighting.Attack;
 import aiinterface.AIInterface;
 import HTNPlanner.CompoundTasks.c_Act;
@@ -48,6 +57,7 @@ public abstract class Planner
 	private ArrayList<Method> projectileAttacks;
 	private ArrayList<Method> knockdownAttacks;
 	private ArrayList<Method> quickAttacks;
+	private ArrayList<Method> quickSpecials;
 	private ArrayList<Method> slidingAttacks;
 	private ArrayList<Method> knockbackAttacks;
 	private ArrayList<Method> airAttacksBackwards;
@@ -61,6 +71,7 @@ public abstract class Planner
 	private ArrayList<Method> projectileAttacks_sorted;
 	private ArrayList<Method> knockdownAttacks_sorted;
 	private ArrayList<Method> quickAttacks_sorted;
+	private ArrayList<Method> quickSpecials_sorted;
 	private ArrayList<Method> slidingAttacks_sorted;
 	private ArrayList<Method> knockbackAttacks_sorted;
 	
@@ -72,6 +83,7 @@ public abstract class Planner
 	private ArrayList<Action> projectileAttacksA;
 	private ArrayList<Action> knockdownAttacksA;
 	private ArrayList<Action> quickAttacksA;
+	private ArrayList<Action> quickSpecialsA;
 	private ArrayList<Action> slidingAttacksA;
 	private ArrayList<Action> knockbackAttacksA;
 
@@ -168,11 +180,27 @@ public abstract class Planner
         //search for a plan
 		this.goalTask.Decompose(initCharacterData, linkedTasks);
 
+		String path = "./log/point/";
+		String fileName = "data/aiData/HTNFighter/UCB_"+ this.gameData.getCharacterName(this.player)+"TestLog3";
+		//String fileName = "HPMode_HTNFighter_MctsAi_2018.08.23-13.52.38";
+
+		PrintWriter pw;
+		File file = new File(fileName);
+		 
+		try {
+			pw = new PrintWriter(new BufferedWriter(new FileWriter(file + ".csv", true)));
+		}
+		catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
 		if(this.plan.size() == 0)
 		{
 			if(Helper.DEBUG_ACTION_EXECUTION)
 			{
 				System.out.println("No plan could be found");
+				pw.append("No plan could be found\n");
 			}
 		}
 		else
@@ -186,8 +214,14 @@ public abstract class Planner
 			if(Helper.DEBUG_ACTION_EXECUTION)
 			{
 				System.out.println(pl);
+				pw.append(pl + "\n");
 			}
+			
 		}
+		
+		pw.flush();
+		pw.close();
+		
 		return this.plan;
 	}
 	
@@ -264,6 +298,7 @@ public abstract class Planner
 		this.projectileAttacks = new ArrayList<Method>();
 		this.knockdownAttacks = new ArrayList<Method>();
 		this.quickAttacks = new ArrayList<Method>();
+		this.quickSpecials = new ArrayList<Method>();
 		this.slidingAttacks = new ArrayList<Method>();
 		this.knockbackAttacks = new ArrayList<Method>();
 		this.airAttacksBackwards = new ArrayList<Method>();
@@ -276,6 +311,7 @@ public abstract class Planner
 		this.projectileAttacks_sorted = new ArrayList<Method>();
 		this.knockdownAttacks_sorted = new ArrayList<Method>();
 		this.quickAttacks_sorted = new ArrayList<Method>();
+		this.quickSpecials_sorted = new ArrayList<Method>();
 		this.slidingAttacks_sorted = new ArrayList<Method>();
 		this.knockbackAttacks_sorted = new ArrayList<Method>();
 		
@@ -286,6 +322,7 @@ public abstract class Planner
 		this.projectileAttacksA = new ArrayList<Action>();
 		this.knockdownAttacksA = new ArrayList<Action>();
 		this.quickAttacksA = new ArrayList<Action>();
+		this.quickSpecialsA = new ArrayList<Action>();
 		this.slidingAttacksA = new ArrayList<Action>();
 		this.knockbackAttacksA = new ArrayList<Action>();
 		
@@ -381,9 +418,20 @@ public abstract class Planner
 				{
 					this.quickAttacks.add((Method) c.newInstance());
 					this.InsertSorted(this.quickAttacksA, this.attacks[i].myAction);
+					
 					if(Helper.DEBUG_METHOD_CREATION)
 					{
 						System.out.println("added quick attack m_" + this.attacks[i].myAction.name());
+					}
+					if(mData.attackStartAddEnergy <= -40)
+					{
+						this.quickSpecials.add((Method) c.newInstance());
+						this.InsertSorted(this.quickSpecialsA, this.attacks[i].myAction);
+						
+						if(Helper.DEBUG_METHOD_CREATION)
+						{
+							System.out.println("added quick special m_" + this.attacks[i].myAction.name());
+						}
 					}
 				} catch (InstantiationException e) {
 					e.printStackTrace();

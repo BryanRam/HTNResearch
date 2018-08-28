@@ -14,7 +14,7 @@ import struct.MotionData;
 
 public class Helper 
 {
-	public static boolean DEBUG_METHOD_DECOMPOSITION = false;
+	public static boolean DEBUG_METHOD_DECOMPOSITION = true;
 	
 	public static boolean DEBUG_HIT_INTERSECTION = false;
 	
@@ -28,7 +28,7 @@ public class Helper
 	
 	public static boolean DEBUG_TIME_OUT = false;
 	
-	public static boolean DEBUG_UCB_STATICTICS = true;
+	public static boolean DEBUG_UCB_STATICTICS = false;
 	
 	public static boolean DEBUG_METHOD_CREATION = true;
 	

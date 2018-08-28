@@ -24,9 +24,12 @@ public class m_KnockBackAttack extends Method
 		
 		this.name = "m_KnockBackAttack";
 
+		//this.tasksToDecompose.add(new c_QuickAttack());
+		//this.tasksToDecompose.add(new c_QuickAttack());
 		this.tasksToDecompose.add(new c_KnockBackAttack());
-		this.tasksToDecompose.add(new c_KnockBackAttack());
+		//this.tasksToDecompose.add(new c_KnockBackAttack());
 		this.tasksToDecompose.add(new c_KnockDownAttack());
+		//this.tasksToDecompose.add(new c_KnockBackAttack());
 	}
 	
 	@Override

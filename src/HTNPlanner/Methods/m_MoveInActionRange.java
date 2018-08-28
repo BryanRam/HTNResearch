@@ -67,6 +67,7 @@ public class m_MoveInActionRange extends Method
 		else if( move < 0)
 		{
 			//this.tasksToDecompose.add(new p_BACK_STEP());
+			this.tasksToDecompose.add(new p_BACK_STEP());
 		}
 
 		return true;

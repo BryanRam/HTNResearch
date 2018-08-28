@@ -5,16 +5,20 @@
 package HTNPlanner.CompoundTasks;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
+import mizunoAI_simulator.SimCharacter;
 import util.Helper;
+import util.Pair;
 import HTNPlanner.CompoundTask;
+import HTNPlanner.Method;
+import HTNPlanner.Planner;
 import HTNPlanner.UCBPlanner;
 import HTNPlanner.Methods.*;
-import HTNPlanner.Methods.Combos.*;
 
-
-public class c_PerformSecondHit extends CompoundTask 
+public class c_QuickSpecials extends CompoundTask
 {
+	
 	//how often each method was used to decompose this task
 	protected static int[] methodsUsed;
 	
@@ -27,30 +31,36 @@ public class c_PerformSecondHit extends CompoundTask
 	
 	protected static float maxReward = UCBPlanner.EPSILON;
 	
-	public c_PerformSecondHit()
+	public c_QuickSpecials()
 	{
 		super();
 		
-		this.name = "c_PerformSecondHit";
+		this.name = "c_QuickSpecials";
 		
-		this.methods.add(new m_SecondHit_STAND_B());
-		this.methods.add(new m_SecondHit_CROUCH_A());
-		this.methods.add(new m_SecondHit_STAND_A());
+		int maxHP = Planner.INSTANCE.frameData == null ? 0 : Math.max(Planner.INSTANCE.frameData.getCharacter(true).getHp(),Planner.INSTANCE.frameData.getCharacter(false).getHp()); 
+		if(maxHP > 0 && (maxHP > 9000 || Planner.INSTANCE.frameData.getCharacter(true).getHp() < (int)(maxHP/3)
+				|| Planner.INSTANCE.frameData.getCharacter(false).getHp() < (int)(maxHP/3)))
+		{
+			this.methods = Planner.INSTANCE.GetQuickAttacks_sorted();
+		}
+		else
+		this.methods = Planner.INSTANCE.GetQuickAttacks();
 
 		
-		c_PerformSecondHit.methodsUsed = new int[this.methods.size()];
-		c_PerformSecondHit.methodsSucceeded = new float[this.methods.size()];
+		c_QuickSpecials.methodsUsed = new int[this.methods.size()];
+		c_QuickSpecials.methodsSucceeded = new float[this.methods.size()];
 	}
 	
 	@Override
 	protected void IncreaseSelectionStatistics(int methodIndex) 
 	{
 		this.selected ++;
-		int amount = c_PerformSecondHit.methodsUsed[methodIndex]++;
+		c_QuickSpecials.methodsUsed[methodIndex]++;
+		int amount = c_QuickSpecials.methodsUsed[methodIndex];
 		if(Helper.DEBUG_UCB_STATICTICS)
 		{
 			System.out.println("Method " + this.methods.get(methodIndex).name + " used in task " + this.name + " " + amount + "/" + this.selected + " times");
-		}
+		}	
 	}
 	
 	@Override
@@ -81,7 +91,7 @@ public class c_PerformSecondHit extends CompoundTask
 		{
 			float exploitation = GetExploitationValForMethod(i);
 			float exploration = GetExplorationValForMethod(i);
-		//	System.out.println(this.name + ", method " + this.methods.get(i).name + " exploitation " + exploitation + ", exploration " + exploration);
+	//		System.out.println(this.name + ", method " + this.methods.get(i).name + " exploitation " + exploitation + ", exploration " + exploration);
 			outp += this.methodsUsed[i];
 			outp += ";";
 		}
@@ -99,17 +109,16 @@ public class c_PerformSecondHit extends CompoundTask
 			this.methods.get(i).PrintAllUCBValuesOfMethod(pw);
 		}
 	}
-
+	
 	@Override
 	public float GetExplorationValForMethod(int methodIndex)
-	{
-		
+	{		
 		if(methodIndex >= this.methods.size())
 		{
 			return -1;
 		}
 		
-		double numSelectedMethod = (double)c_PerformSecondHit.methodsUsed[methodIndex] + UCBPlanner.EPSILON;
+		double numSelectedMethod = (double)c_QuickSpecials.methodsUsed[methodIndex] + UCBPlanner.EPSILON;
 		
 		/*
 		double ln = Math.log(this.selected);
@@ -157,8 +166,8 @@ public class c_PerformSecondHit extends CompoundTask
 			return -1;
 		}
 		
-		float numSelected = (float)c_PerformSecondHit.methodsUsed[methodIndex] + UCBPlanner.EPSILON;
-		float numSucceeded = c_PerformSecondHit.methodsSucceeded[methodIndex]/maxReward;
+		float numSelected = (float)c_QuickSpecials.methodsUsed[methodIndex] + UCBPlanner.EPSILON;
+		float numSucceeded = c_QuickSpecials.methodsSucceeded[methodIndex]/maxReward;
 		float q = numSucceeded/numSelected;
 		if(Helper.DEBUG_UCB_STATICTICS)
 		{
@@ -172,54 +181,29 @@ public class c_PerformSecondHit extends CompoundTask
 	{
 		//float successPortion = (float)1/(float)(this.methods.get(this.indMethodSelected).GetAmountOfTasks());	
 		//this.succeeded += successPortion/this.selected;
-
+		
 		if(Helper.SUCCESS_AS_REWARD)
 		{
 			currentReward = currentReward/(float)(this.methods.get(this.indMethodSelected).GetAmountOfTasks());
 		}
 		
-		IncreaseSuccessStatistics(c_PerformSecondHit.methodsSucceeded, this.indMethodSelected,  currentReward, this.succeeded);
+		IncreaseSuccessStatistics(c_QuickSpecials.methodsSucceeded, this.indMethodSelected,  currentReward, this.succeeded);
+		if(Helper.DEBUG_UCB_STATICTICS)
+		{
+			System.out.println("Method " + this.methods.get(this.indMethodSelected).name + " succeeded in task " + this.name + ", total reward of method: " + c_QuickSpecials.methodsSucceeded[indMethodSelected] + " and task" + this.succeeded
+					+ " av reward of m: " + c_QuickSpecials.methodsSucceeded[indMethodSelected]/c_QuickSpecials.methodsUsed[indMethodSelected]);
 
+		}	
 	}
 	
 	@Override
 	protected void FlushMethodRewards()
 	{
-		float bonus = this.GetBonus();
-		this.tempReward += bonus;
-			
 		super.FlushMethodRewards();
 		
-		if(this.tempReward > c_PerformSecondHit.maxReward)
+		if(this.tempReward > c_QuickSpecials.maxReward)
 		{
-			c_PerformSecondHit.maxReward = this.tempReward;
+			c_QuickSpecials.maxReward = this.tempReward;
 		}
-	}
-	
-	@Override
-	public float GetBonus()
-	{
-		float bonus = 0;
-		switch (this.indMethodSelected)
-		{
-			//m_FirstHit_STAND_A
-			case 2:
-				bonus += (100/7)/4;
-				break;
-			//m_FirstHit_STAND_B
-			case 0:
-				bonus += (90/5)/4;
-				break;
-			//m_FirstHit_CROUCH_A
-			case 1:
-				bonus += (40/2)/4;
-				break;
-		}
-		if(Helper.DEBUG_UCB_STATICTICS)
-		{
-			System.out.println("bonus of " + this.name + " = " + bonus);
-		}
-
-		return bonus;
 	}
 }

@@ -39,7 +39,7 @@ public class c_AttackSortedByType extends CompoundTask
 		this.methods.add(new m_LowAttack());	
 		this.methods.add(new m_HighAttack());
 		this.methods.add(new m_MiddleAttack());
-		//this.methods.add(new m_ThrowAttack());
+		this.methods.add(new m_ThrowAttack());
 		
 		
 		c_AttackSortedByType.methodsUsed = new int[this.methods.size()];
@@ -131,9 +131,17 @@ public class c_AttackSortedByType extends CompoundTask
 
 		float val = (float)(3 * Math.sqrt(quotient));*/
 		
+		/*
 		double ln = Math.log(this.selected);
 		ln = this.selected == 0? 0:ln;
 		double quotient = 1.5 * (ln/numSelectedMethod) ;
+		
+		float val = (float)(Math.sqrt(quotient));
+		*/
+		
+		double ln = Math.log(this.selected);
+		ln = this.selected == 0? 0:ln;
+		double quotient = UCBPlanner.C * (ln/numSelectedMethod) ;
 		
 		float val = (float)(Math.sqrt(quotient));
 		
