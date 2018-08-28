@@ -65,6 +65,7 @@ public class c_Attack extends CompoundTask
 						
 		this.methods.add(new m_AttackSortedByType());
 		
+		
 
 		c_Attack.methodsUsed = new int[this.methods.size()];
 		c_Attack.methodsSucceeded = new float[this.methods.size()];

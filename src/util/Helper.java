@@ -14,7 +14,7 @@ import struct.MotionData;
 
 public class Helper 
 {
-	public static boolean DEBUG_METHOD_DECOMPOSITION = true;
+	public static boolean DEBUG_METHOD_DECOMPOSITION = true /*false*/;
 	
 	public static boolean DEBUG_HIT_INTERSECTION = false;
 	
@@ -22,7 +22,7 @@ public class Helper
 	
 	public static boolean DEBUG_ACTION_HISTORY = false;
 	
-	public static boolean DEBUG_ACTION_EXECUTION = true;
+	public static boolean DEBUG_ACTION_EXECUTION = true /*false*/;
 	
 	public static boolean DEBUG_PRECONDITIONS = false;
 	
@@ -30,7 +30,9 @@ public class Helper
 	
 	public static boolean DEBUG_UCB_STATICTICS = false;
 	
-	public static boolean DEBUG_METHOD_CREATION = true;
+	public static boolean DEBUG_METHOD_CREATION = true /*false*/;
+	
+	//public static boolean DEBUG_HIT_COUNT = true;
 	
 	
 	public static int PROJECTILE_ACTIVE_FRAMES = 65;
@@ -41,7 +43,7 @@ public class Helper
 	
 	public static boolean SUCCESS_AS_REWARD = false;
 	
-	public static boolean DECREASE_C = false;
+	public static boolean DECREASE_C = true;
 	
 	public static boolean LEARN_UCB = false;
 	

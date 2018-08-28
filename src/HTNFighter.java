@@ -154,11 +154,11 @@ public class HTNFighter implements AIInterface {
 		//String tmpcharname = this.gameData.getCharacterName(this.playerB);
 		if(myCharacterName.equals("ZEN"))
 		{
-			///*
+			/*
 			planner = new OrderedPlanner(playerB, gameData);
 			planner.initialized = true;
 			//*/
-			/*
+			///*
 			planner = new UCBPlanner(playerB, gameData);
 			((UCBPlanner)(planner)).ReadAllUCBValues();
 			//*/
@@ -472,8 +472,8 @@ public class HTNFighter implements AIInterface {
 		//60 seconds per round
 		float timeLeft = frameData.getRemainingTimeMilliseconds()/1000 + (3-round)*60;
 						
-		//UCBPlanner.C = (float) Math.sqrt(15) * (timeLeft/totalTime) + (float) Math.sqrt(2);
-		UCBPlanner.C = (float) 2.0 * (timeLeft/totalTime);
+		UCBPlanner.C = (float) Math.sqrt(15) * (timeLeft/totalTime) + (float) Math.sqrt(2);
+		//UCBPlanner.C = (float) 2.0 * (timeLeft/totalTime);
 	}
 	
 	private boolean CheckPrevActionSuccess()
@@ -589,6 +589,6 @@ public class HTNFighter implements AIInterface {
 		}
 		return null;
 	}
-	*/
+	//*/
 
 }

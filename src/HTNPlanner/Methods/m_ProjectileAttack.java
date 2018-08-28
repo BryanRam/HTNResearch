@@ -43,14 +43,14 @@ public class m_ProjectileAttack extends Method
 		
 		if(Planner.INSTANCE.player == currentSimCharacters.m_a.isPlayerNumber())
 		{
-				if(currentSimCharacters.m_a.getHp() < 80)
+				if(currentSimCharacters.m_a.getHp() < 50)
 			{
 				return false;
 			}
 		}
 		else
 		{
-			if(currentSimCharacters.m_b.getHp() < 80)
+			if(currentSimCharacters.m_b.getHp() < 50)
 			{
 				return false;
 			}
@@ -87,18 +87,18 @@ public class m_ProjectileAttack extends Method
 			
 	//	System.out.println("diff v " + diffV + " diff h " + diffH);
 		
-		
-		if(diffV > 50 && diffH < 55)
+	/*	
+		if(diffVopp > 50 && diffHopp < 55)
 		{
 	//		System.out.println("he is above - no projectile");
 			holds = false;
 		}
-		if(diffV > 10 && diffH < 15)
+		if(diffVopp > 10 && diffHopp < 15)
 		{
 	//		System.out.println("he is above - no projectile");
 			holds = false;
 		}
-		
+		*/
 		return holds;
 	}
 }

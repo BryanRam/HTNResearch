@@ -40,7 +40,7 @@ public class m_KnockDownAttack extends Method
 		int distH = Helper.DistanceBetweenBoxes(currentSimCharacters.m_a.getLeft(), currentSimCharacters.m_a.getRight(),
 				currentSimCharacters.m_b.getLeft(), currentSimCharacters.m_b.getRight());
 		//TODO: here
-		if( distH >200 ) //|| distH < 30 )
+		if( distH >100 ) //|| distH < 30 )
 		{
 			return false;
 		}

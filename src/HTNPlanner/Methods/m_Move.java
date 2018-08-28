@@ -41,8 +41,9 @@ public class m_Move extends Method
 			return true;
 		}
 		
+		System.out.println("Current energy: " + currentSimCharacters.m_a.getEnergy());
 	
-		if(dist > 400)// && !Planner.INSTANCE.GetGameData().getPlayerOneCharacterName().equals(AIInterface.CHARACTER_GARNET))
+		if(dist > 400 || currentSimCharacters.m_a.getEnergy() < 10)// && !Planner.INSTANCE.GetGameData().getPlayerOneCharacterName().equals(AIInterface.CHARACTER_GARNET))
 		{
 			this.tasksToDecompose.add(new p_DASH());
 		}
@@ -55,7 +56,8 @@ public class m_Move extends Method
 			this.tasksToDecompose.add(new p_STAND());
 		}	*/
 		
-		else if(currentSimCharacters.m_a.getEnergy() < 80 &&
+		else if(currentSimCharacters.m_b.getEnergy() >= 30 
+				&&
 				(//Don't jump back into a corner
 					(currentSimCharacters.m_a.getLeft()>60 && currentSimCharacters.m_a.isFront()) || 
 					(currentSimCharacters.m_a.getRight() < Planner.INSTANCE.GetGameData().getStageWidth()-60 && 

@@ -49,12 +49,17 @@ public class m_QuickSpecials extends Method
 			}
 			
 		}*/
+		
+		//System.out.println("In Quick Specials");
+		
 		//TODO: here
 		int distH = Helper.DistanceBetweenBoxes(currentSimCharacters.m_a.getLeft(), currentSimCharacters.m_a.getRight(),
 				currentSimCharacters.m_b.getLeft(), currentSimCharacters.m_b.getRight());
 		//TODO: here
+		//System.out.println("Quick Special range: " + distH);
 		if( distH > 400 )
 		{
+			
 			return false;
 		}
 		return true;
